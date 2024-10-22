@@ -1,0 +1,59 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load dataset
+url = 'Capetown_Informal_Settlements.csv'
+df = pd.read_csv(url)
+
+# Data exploration
+print(df.head())
+print(df.info())
+print(df.describe())
+
+# Data visualization
+plt.figure(figsize=(10,6))
+plt.plot(df['Year'], df['Population'])
+plt.xlabel('Year')
+plt.ylabel('Population')
+plt.title('Capetown Informal Settlements Population Growth')
+plt.show()
+
+# Bar chart for location-wise population
+location_groups = df.groupby('Location')['Population'].sum().reset_index()
+plt.figure(figsize=(10,6))
+plt.bar(location_groups['Location'], location_groups['Population'])
+plt.xlabel('Location')
+plt.ylabel('Population')
+plt.title('Location-wise Population Distribution')
+plt.show()
+
+# Pie chart for year-wise population
+year_groups = df.groupby('Year')['Population'].sum().reset_index()
+plt.figure(figsize=(10,6))
+plt.pie(year_groups['Population'], labels = year_groups['Year'], autopct='%1.1f%%')
+plt.title('Year-wise Population Distribution')
+plt.show()
+
+# Data analysis
+population_growth = df['Population'].sum()
+print("Total population growth:", population_growth)
+
+# Group by location
+print(df.groupby('Location')['Population'].sum())
+
+# Filter by year
+year_2024 = df[df['Year'] == 2024]
+print(year_2024)
+
+# Calculate average population per year
+avg_population_per_year = df.groupby('Year')['Population'].mean()
+print("Average population per year:", avg_population_per_year)
+
+# Calculate total area
+total_area = df['Area_Sq_Km'].sum()
+print("Total area:", total_area)
+
+# Calculate population density
+population_density = df['Population'].sum() / total_area
+print("Population density:", population_density)
