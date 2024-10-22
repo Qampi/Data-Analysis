@@ -1,0 +1,14 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Load your dataset
+df = pd.read_csv("your_dataset.csv")
+
+# Group data by category and calculate sum
+grouped_df = df.groupby('category')['value'].sum().reset_index()
+
+# Create pie chart
+plt.figure(figsize=(8, 8))
+plt.pie(grouped_df['value'], labels=grouped_df['category'], autopct='%1.1f%%')
+plt.title('Category Distribution')
+plt.show()
